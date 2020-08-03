@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/marasinipradeep/employee_tracker#readme",
   "dependencies": {
+    "console-table-printer": "^2.3.1",
     "inquirer": "^7.3.3",
     "jest": "^26.2.2",
     "mysql": "^2.18.1"

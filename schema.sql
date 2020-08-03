@@ -28,3 +28,20 @@ CREATE TABLE employee(
     manager_id INT NULL,
     PRIMARY KEY (id)
 );
+
+
+-- 3 table join
+
+SELECT employee.id 
+	,employee.first_name
+    , employee.last_name
+    ,role.title
+	, department.name
+    ,role.salary
+    , employee.manager_id
+    
+FROM employee 
+INNER JOIN department 
+    on employee.id = department.id
+INNER JOIN role
+    on department.id = role.id

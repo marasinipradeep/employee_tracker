@@ -32,16 +32,13 @@ CREATE TABLE employee(
 
 -- 3 table join
 
-SELECT employee.id 
-	,employee.first_name
-    , employee.last_name
-    ,role.title
-	, department.name
-    ,role.salary
-    , employee.manager_id
-    
+SELECT employee.id ,employee.first_name, employee.last_name,role.title, department.name,role.salary, employee.manager_id
 FROM employee 
-INNER JOIN department 
-    on employee.id = department.id
-INNER JOIN role
-    on department.id = role.id
+INNER JOIN department on employee.id = department.id
+INNER JOIN role on department.id = role.id
+
+-- view Employee by Department(Department and Employee Inner Join)
+
+SELECT department.id ,department.name,employee.first_name, employee.last_name
+FROM department 
+INNER JOIN employee on department.id = employee.id

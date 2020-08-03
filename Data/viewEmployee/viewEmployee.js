@@ -6,7 +6,8 @@ const viewEmployee ={
 
         "---------VIEW ALL EMPLOYEE-----------",
         "---------VIEW EMPLOYEE BY DEPARTMENT-------------",
-        "---------VIEW ALL EMPLOYEE BY MANAGER-----------"
+        "---------VIEW ALL EMPLOYEE BY MANAGER-----------",
+        "---------VIEW ALL EMPLOYEE BY ROLE-----------"
     ]
 }
 

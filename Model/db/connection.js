@@ -2,10 +2,10 @@ const mysql = require("mysql")
 
 // database info
 const connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "alterPassword",
-    database: "employeeManagement_db",
+    host: process.env.DBHOST ||"localhost",
+    user: process.env.DBUSER ||"root",
+    password: process.env.DBPASSWORD||"alterPassword",
+    database: process.env.DATABASE ||"employeeManagement_db",
 })
    
 

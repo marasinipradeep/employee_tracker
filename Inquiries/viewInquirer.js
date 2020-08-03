@@ -15,9 +15,15 @@ const viewEmployee = function () {
             break;
 
             case("---------VIEW EMPLOYEE BY DEPARTMENT-------------"):
+            viewemployeeTable.viewEmployeeByDepartment()
             break;
 
             case("---------VIEW ALL EMPLOYEE BY MANAGER-----------"):
+            viewemployeeTable.viewEmployeeByManager()
+            break;
+
+            case("---------VIEW ALL EMPLOYEE BY ROLE-----------"):
+            viewemployeeTable.viewEmployeeByRole()
             break;
 
             default:
@@ -25,8 +31,7 @@ const viewEmployee = function () {
                 break;
 
         }
-       
-      //  queries.insertIntoDepartment(newDepartment)
+  
     })
 }
 

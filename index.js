@@ -16,7 +16,7 @@ function init() {
 var startInFiveSecond = setInterval(() => {
     onStart.start()
     clearInterval(startInFiveSecond)
-}, 5000)
+}, 2000)
 
 
 

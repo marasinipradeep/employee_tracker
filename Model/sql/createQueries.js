@@ -48,6 +48,16 @@ const insertIntoEmployee = function(newEmployee){
         })
 }
 
+const selectAllRole =function(){
+        connection.query(
+        "select title from role;",(err,role)=>{
+            if (err) throw err;
+            console.log(role)
+        }
+    )
+}
+
 module.exports.insertIntoDepartment = insertIntoDepartment;
 module.exports.insertIntoRole=insertIntoRole;
 module.exports.insertIntoEmployee=insertIntoEmployee;
+module.exports.selectAllRole=selectAllRole;

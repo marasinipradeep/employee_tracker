@@ -22,11 +22,13 @@ const viewEmployee = function () {
             break;
 
             case("---------VIEW ALL EMPLOYEE BY MANAGER-----------"):
-            viewemployeeTable.viewEmployeeByManager()
+            createInq.selectManager()
+           // viewemployeeTable.viewEmployeeByManager()
             break;
 
             case("---------VIEW ALL EMPLOYEE BY ROLE-----------"):
-            viewemployeeTable.viewEmployeeByRole()
+            createInq.selectRole()
+            //viewemployeeTable.viewEmployeeByRole()
             break;
 
             default:

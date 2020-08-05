@@ -10,12 +10,9 @@ const onStart=require("./onStartInquirer")
 
 const insertEmployees = function () {
     inquirer.prompt(insertEmploy).then((answer) => {
+        
 
         switch(answer.insertEmployeeChoices){
-
-            case("---------ADD EMPLOYEE-----------"):
-            createInquirer.employeeQuestions()
-            break;
 
             case("---------ADD DEPARTMENT-------------"):
             createInquirer.departmentQuestion()
@@ -24,6 +21,12 @@ const insertEmployees = function () {
             case("---------ADD ROLE-----------"):
             createInquirer.roleQuestions()
             break;
+
+            case("---------ADD EMPLOYEE-----------"):
+            createInquirer.employeeQuestions()
+            break;
+
+           
 
             case("---------EXIT--------------"):
             onStart.start()

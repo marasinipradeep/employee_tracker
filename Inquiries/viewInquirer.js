@@ -10,7 +10,6 @@ const viewEmployee = function () {
         switch(answer.viewEmployeeChoices){
 
             case("---------VIEW ALL EMPLOYEE-----------"):
-            console.log("inside line 13")
             viewemployeeTable.viewEmployeeTable()
             break;
 

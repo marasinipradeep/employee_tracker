@@ -3,10 +3,9 @@ const insertEmployee ={
     type:"rawlist",
     name:"insertEmployeeChoices",
     choices:[
-
-        "---------ADD EMPLOYEE-----------",
         "---------ADD DEPARTMENT-------------",
         "---------ADD ROLE-----------",
+        "---------ADD EMPLOYEE-----------",
         "---------EXIT--------------"
     ]
 }

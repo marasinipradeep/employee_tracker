@@ -31,12 +31,14 @@ function start() {
             case ("---------DELETE EMPLOYEE-----------"):
                 break;
 
-            case("---------EXIT--------------"):
+            case ("---------EXIT--------------"):
+                connection.end()
                 process.exit()
                 break;
 
             default:
                 console.log("not valid selection");
+                connection.end()
                 process.exit()
                 break;
 
@@ -45,4 +47,4 @@ function start() {
     })
 }
 
-module.exports.start=start;
+module.exports.start = start;

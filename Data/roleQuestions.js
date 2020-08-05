@@ -12,12 +12,12 @@ const roleQuestions= [
 
     },
 
-    {
-        message: "What is department_id of Employee?",
-        name: "department_id",
-        type: "input"
+    // {
+    //     message: "What is department_id of Employee?",
+    //     name: "department_id",
+    //     type: "input"
 
-    }
+    // }
 ]
 
 module.exports = roleQuestions

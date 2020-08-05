@@ -1,7 +1,9 @@
 const connection = require("../db/connection");
 
+
+// Add Department Name Into department Table
 const insertIntoDepartment =function(newDepartment){
-return connection.query(
+ connection.query(
     "INSERT INTO department SET ?",
     {
         name: newDepartment.name
@@ -9,7 +11,6 @@ return connection.query(
     (err) => {
         if (err) throw err;
         console.log("Department name created successfully")
-        connection.end();
     })
 
 }
@@ -26,12 +27,11 @@ const insertIntoRole = function(newRole){
         (err) => {
             if (err) throw err;
             console.log("Role  created successfully")
-            connection.end();
         })
 }
 
 const insertIntoEmployee = function(newEmployee){
-
+    console.log("line 32")
     connection.query(
         "INSERT INTO employee SET ?",
         {
@@ -44,20 +44,60 @@ const insertIntoEmployee = function(newEmployee){
         (err) => {
             if (err) throw err;
             console.log("Employee  created successfully")
-            connection.end();
         })
 }
 
+//Select All By Role
+
 const selectAllRole =function(){
-        connection.query(
-        "select title from role;",(err,role)=>{
-            if (err) throw err;
-            console.log(role)
-        }
+     return   connection.query(
+        "select title from role;"
     )
 }
+
+
+//Select All By Employee
+const selectAllManager =function(){
+  return  connection.query(
+    "select first_name from employee"
+)
+}
+
+//Select Name By Department
+const selectNameByDepartment =function(){
+    return  connection.query(
+      "select name from department"
+  )
+  }
+
+  //select id from department
+  const selectIdByDepartment =function(departmentName){
+    return  connection.query(
+      "select id from department where name = ?",departmentName
+  )
+  }
+
+  const selectIdByRole =function(title){
+    return   connection.query(
+       "select id from role where title = ?;",title
+   )
+}
+
+const selectIdByEmployee =function(first_name){
+    return   connection.query(
+       "select id from employee where first_name = ?;",first_name
+   )
+}
+
+
+
 
 module.exports.insertIntoDepartment = insertIntoDepartment;
 module.exports.insertIntoRole=insertIntoRole;
 module.exports.insertIntoEmployee=insertIntoEmployee;
 module.exports.selectAllRole=selectAllRole;
+module.exports.selectAllManager=selectAllManager;
+module.exports.selectNameByDepartment=selectNameByDepartment;
+module.exports.selectIdByDepartment=selectIdByDepartment;
+module.exports.selectIdByRole=selectIdByRole;
+module.exports.selectIdByEmployee=selectIdByEmployee;

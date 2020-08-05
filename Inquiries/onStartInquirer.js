@@ -9,6 +9,7 @@ const insertIntoInquirer = require("../Inquiries/insertIntoTable")
 
 //Inquirer For Viewing Data From Employee,Role,Department Table
 const viewInquirer = require("../Inquiries/viewInquirer")
+const updateInquirer = require("../Inquiries/updateInquirer")
 
 
 
@@ -26,6 +27,7 @@ function start() {
                 break;
 
             case ("---------UPDATE EMPLOYEE-----------"):
+                updateInquirer.updateEmployee();
                 break;
 
             case ("---------DELETE EMPLOYEE-----------"):

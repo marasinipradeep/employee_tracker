@@ -2,6 +2,7 @@
 const inquirer = require("inquirer")
 const queries = require("../Model/sql/createQueries")
 const viewemployeeTable =require("../Model/sql/viewQueries")
+const updateTable=require("../Model/sql/updateQueries")
 
 const Department = require("../Model/Department")
 const Employee = require("../Model/Employee")
@@ -160,6 +161,86 @@ async function selectRole(){
 
 }
 
+async function selectAndUpdateByRole(){
+    const role = await queries.selectAllRole();
+    var oldroleChoiceArray = [];
+   
+    for (var i = 0; i < role.length; i++) {
+        oldroleChoiceArray.push(role[i].title)
+    }
+    const oldroleAnswer = await inquirer.prompt(
+        {
+            message: "Select Role From List to Update?",
+            name: "oldRole",
+            type: "rawlist",
+            choices: oldroleChoiceArray
+        }
+    )
+    const oldidByRole = await queries.selectIdByRole(oldroleAnswer.oldRole);
+
+    const newrole = await queries.selectAllRole();
+    var newroleChoiceArray = [];
+    for (var i = 0; i < newrole.length; i++) {
+        newroleChoiceArray.push(newrole[i].title)
+    }
+
+    const newroleAnswer = await inquirer.prompt(
+        {
+            message: "Select Role From List to Update?",
+            name: "newRole",
+            type: "rawlist",
+            choices: newroleChoiceArray
+        }
+    )
+
+    const newidByRole = await queries.selectIdByRole(newroleAnswer.newRole);
+    console.log("57")
+    console.log(oldidByRole[0].id)
+    updateTable.updateByRole(oldidByRole[0].id,newidByRole[0].id)
+
+}
+
+
+async function selectAndUpdateByManager(){
+    const manager = await queries.selectAllManager();
+    console.log("206")
+    console.log(manager)
+    var oldmanagerChoiceArray = [];
+    for (var i = 0; i < manager.length; i++) {
+        oldmanagerChoiceArray.push(manager[i].first_name)
+    }
+    const oldrManagerAnswer = await inquirer.prompt(
+        {
+            message: "Select From Manager to Update?",
+            name: "oldManager",
+            type: "rawlist",
+            choices: oldmanagerChoiceArray
+        }
+    )
+    const oldidByManager = await queries.selectIdByEmployee(oldrManagerAnswer.oldManager);
+
+
+    const newmanager = await queries.selectAllManager();
+    var newmanagerChoiceArray = [];
+    for (var i = 0; i < newmanager.length; i++) {
+        newmanagerChoiceArray.push(newmanager[i].first_name)
+    }
+    const newManagerAnswer = await inquirer.prompt(
+        {
+            message: "Select Manager From List to Update?",
+            name: "newManager",
+            type: "rawlist",
+            choices: newmanagerChoiceArray
+        }
+    )
+
+    const newidByManager = await queries.selectIdByEmployee(newManagerAnswer.newManager);
+    updateTable.updateByRole(oldidByManager[0].id,newidByManager[0].id)
+
+   
+
+}
+
 module.exports.departmentQuestion = departmentQuestion;
 module.exports.roleQuestions = roleQuestions;
 module.exports.employeeQuestions = employeeQuestions;
@@ -167,3 +248,6 @@ module.exports.employeeQuestions = employeeQuestions;
 module.exports.selectdepartment=selectdepartment
 module.exports.selectManager=selectManager
 module.exports.selectRole=selectRole
+
+module.exports.selectAndUpdateByRole=selectAndUpdateByRole
+module.exports.selectAndUpdateByManager=selectAndUpdateByManager

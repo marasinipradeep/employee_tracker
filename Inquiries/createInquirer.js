@@ -1,6 +1,7 @@
 
 const inquirer = require("inquirer")
 const queries = require("../Model/sql/createQueries")
+const viewemployeeTable =require("../Model/sql/viewQueries")
 
 const Department = require("../Model/Department")
 const Employee = require("../Model/Employee")
@@ -22,7 +23,7 @@ const departmentQuestion = function () {
 }
 
 
-
+//Create role questions hold user input as role name and insert into table
 const roleQuestions = async function () {
     const { title, salary } = await inquirer.prompt(role)
     //Get all Roles from Table
@@ -34,7 +35,6 @@ const roleQuestions = async function () {
         departmentChoiceByNameArray.push(roles[i].name)
     }
 
-    console.log(roles)
     const answer = await inquirer.prompt(
         {
             message: "What is department_id of Employee?",
@@ -51,15 +51,15 @@ const roleQuestions = async function () {
     inqury.insertEmployees()
 }
 
-const employeeQuestions = async function () {
 
+//Create employee questions hold user input and insert into table
+const employeeQuestions = async function () {
     const { firstName, lastName } = await inquirer.prompt(employee)
     const role = await queries.selectAllRole();
     var roleChoiceArray = [];
     for (var i = 0; i < role.length; i++) {
         roleChoiceArray.push(role[i].title)
     }
-
     const roleAnswer = await inquirer.prompt(
         {
             message: "Select Role Of Employee From List?",
@@ -72,7 +72,6 @@ const employeeQuestions = async function () {
 
     //Get all Manager id from table
     const manager = await queries.selectAllManager();
-
     var managerChoiceArray = [];
     for (var i = 0; i < manager.length; i++) {
         managerChoiceArray.push(manager[i].first_name)
@@ -91,6 +90,34 @@ const employeeQuestions = async function () {
     await queries.insertIntoEmployee(newEmployee)
     inqury.insertEmployees()
 }
+
+
+const selectdepartment = async function (){
+    const roles = await queries.selectNameByDepartment();
+    var departmentChoiceByNameArray = [];
+
+    for (var i = 0; i < roles.length; i++) {
+        console.log(`line 49 ${roles[i].name}`)
+        departmentChoiceByNameArray.push(roles[i].name)
+    }
+
+    const answer = await inquirer.prompt(
+        {
+            message: "What is department_id of Employee?",
+            name: "department_id",
+            type: "rawlist",
+            choices: departmentChoiceByNameArray
+        }
+    )
+
+    const idByDepartment = await queries.selectIdByDepartment(answer.department_id);
+    console.log("57")
+    console.log(idByDepartment[0].id)
+     viewemployeeTable.viewEmployeeByDepartment(idByDepartment[0].id)
+}
+
 module.exports.departmentQuestion = departmentQuestion;
 module.exports.roleQuestions = roleQuestions;
 module.exports.employeeQuestions = employeeQuestions;
+
+module.exports.selectdepartment=selectdepartment

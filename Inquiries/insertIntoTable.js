@@ -26,8 +26,6 @@ const insertEmployees = function () {
             createInquirer.employeeQuestions()
             break;
 
-           
-
             case("---------EXIT--------------"):
             onStart.start()
             break;

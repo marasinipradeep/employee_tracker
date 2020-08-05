@@ -3,6 +3,8 @@ const inquirer = require("inquirer")
 const viewEmploy = require("../Data/viewEmployee/viewEmployee")
 const viewemployeeTable=require("../Model/sql/viewQueries")
 
+const createInq = require("./createInquirer")
+
 
 const viewEmployee = function () {
     inquirer.prompt(viewEmploy).then((answer) => {
@@ -14,7 +16,9 @@ const viewEmployee = function () {
             break;
 
             case("---------VIEW EMPLOYEE BY DEPARTMENT-------------"):
-            viewemployeeTable.viewEmployeeByDepartment()
+
+            createInq.selectdepartment()
+           // viewemployeeTable.viewEmployeeByDepartment()
             break;
 
             case("---------VIEW ALL EMPLOYEE BY MANAGER-----------"):
@@ -33,5 +37,7 @@ const viewEmployee = function () {
   
     })
 }
+
+
 
 module.exports.viewEmployee = viewEmployee;

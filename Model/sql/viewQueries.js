@@ -3,7 +3,14 @@ const connection = require("../db/connection");
 const viewEmployeeTable = function () {
     console.log("inside viewEmployee table line 4")
     return connection.query(
-        "SELECT employee.id ,employee.first_name, employee.last_name,role.title, department.name,role.salary, employee.manager_id FROM employee INNER JOIN department on employee.id = department.id INNER JOIN role on department.id = role.id",
+        `SELECT employee.id, employee.first_name,
+        employee.last_name, role.title, 
+        department.name AS department,
+        role.salary, CONCAT(manager.first_name, ' ', manager.last_name) 
+        AS manager FROM employee
+        LEFT JOIN role on employee.role_id = role.id
+        LEFT JOIN department on role.department_id = department.id 
+        LEFT JOIN employee manager on manager.id = employee.manager_id`,
         (err, response) => {
             if (err) throw err;
             console.log("View Table Query Executed SuccessFully.....")
@@ -14,9 +21,9 @@ const viewEmployeeTable = function () {
                         FIRST_NAME: response[i].first_name,
                         LAST_NAME: response[i].last_name,
                         TITLE: response[i].title,
-                        DEPARTMENT: response[i].name,
+                        DEPARTMENT: response[i].department,
                         SALARY: response[i].salary,
-                        MANAGER_ID: response[i].manager_id
+                        MANAGER_ID: response[i].manager
                     });
                
             }
@@ -26,13 +33,14 @@ const viewEmployeeTable = function () {
        
 }
 
-const viewEmployeeByDepartment = function(){
+const viewEmployeeByDepartment = function(department){
 
     console.log("inside viewEmployee By Department line 31")
     return connection.query(
-        `SELECT department.id ,department.name,employee.first_name, employee.last_name
-        FROM department 
-        INNER JOIN employee on department.id = employee.id`,
+        ` SELECT employee.id, employee.first_name,employee.last_name, role.title 
+        FROM employee 
+        LEFT JOIN role on employee.role_id = role.id 
+        LEFT JOIN department department on role.department_id = department.id WHERE department.id =?`,department,
         (err, response) => {
             if (err) throw err;
             console.log("View Table Query Executed SuccessFully.....")
@@ -40,9 +48,9 @@ const viewEmployeeByDepartment = function(){
             for (i = 0; i < response.length; i++) {
                 insertDataIntoTable.push( {
                         ID: response[i].id,
-                        DEPARTMENT: response[i].name,
                         FIRST_NAME: response[i].first_name,
-                        LAST_NAME: response[i].last_name
+                        LAST_NAME: response[i].last_name,
+                        TITLE: response[i].title,
                     });
                
             }

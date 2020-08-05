@@ -1,8 +1,8 @@
 
 const inquirer = require("inquirer")
 const queries = require("../Model/sql/createQueries")
-const viewemployeeTable =require("../Model/sql/viewQueries")
-const updateTable=require("../Model/sql/updateQueries")
+const viewemployeeTable = require("../Model/sql/viewQueries")
+const updateTable = require("../Model/sql/updateQueries")
 
 const Department = require("../Model/Department")
 const Employee = require("../Model/Employee")
@@ -87,13 +87,13 @@ const employeeQuestions = async function () {
     )
 
     const idByEmployee = await queries.selectIdByEmployee(managerAnswer.managerId);
-    let newEmployee = new Employee(firstName, lastName, idByRole[0].id,idByEmployee[0].id)
+    let newEmployee = new Employee(firstName, lastName, idByRole[0].id, idByEmployee[0].id)
     await queries.insertIntoEmployee(newEmployee)
     inqury.insertEmployees()
 }
 
 
-const selectdepartment = async function (){
+const selectdepartment = async function () {
     const roles = await queries.selectNameByDepartment();
     var departmentChoiceByNameArray = [];
 
@@ -114,10 +114,10 @@ const selectdepartment = async function (){
     const idByDepartment = await queries.selectIdByDepartment(answer.department_id);
     console.log("57")
     console.log(idByDepartment[0].id)
-     viewemployeeTable.viewEmployeeByDepartment(idByDepartment[0].id)
+    viewemployeeTable.viewEmployeeByDepartment(idByDepartment[0].id)
 }
 
-const selectManager = async function (){
+const selectManager = async function () {
     //Get all Manager id from table
     const manager = await queries.selectAllManager();
     var managerChoiceArray = [];
@@ -135,10 +135,10 @@ const selectManager = async function (){
     const idByManager = await queries.selectIdByEmployee(managerAnswer.managerId);
     console.log("57")
     console.log(idByManager[0].id)
-     viewemployeeTable.viewEmployeeByManager(idByManager[0].id)
+    viewemployeeTable.viewEmployeeByManager(idByManager[0].id)
 }
 
-async function selectRole(){
+async function selectRole() {
     const role = await queries.selectAllRole();
     var roleChoiceArray = [];
     for (var i = 0; i < role.length; i++) {
@@ -157,14 +157,14 @@ async function selectRole(){
     console.log(idByRole[0].id)
     viewemployeeTable.viewEmployeeByRole(idByRole[0].id)
 
-   
+
 
 }
 
-async function selectAndUpdateByRole(){
+async function selectAndUpdateByRole() {
     const role = await queries.selectAllRole();
     var oldroleChoiceArray = [];
-   
+
     for (var i = 0; i < role.length; i++) {
         oldroleChoiceArray.push(role[i].title)
     }
@@ -196,12 +196,12 @@ async function selectAndUpdateByRole(){
     const newidByRole = await queries.selectIdByRole(newroleAnswer.newRole);
     console.log("57")
     console.log(oldidByRole[0].id)
-    updateTable.updateByRole(oldidByRole[0].id,newidByRole[0].id)
+    updateTable.updateByRole(oldidByRole[0].id, newidByRole[0].id)
 
 }
 
 
-async function selectAndUpdateByManager(){
+async function selectAndUpdateByManager() {
     const manager = await queries.selectAllManager();
     console.log("206")
     console.log(manager)
@@ -235,9 +235,9 @@ async function selectAndUpdateByManager(){
     )
 
     const newidByManager = await queries.selectIdByEmployee(newManagerAnswer.newManager);
-    updateTable.updateByRole(oldidByManager[0].id,newidByManager[0].id)
+    updateTable.updateByRole(oldidByManager[0].id, newidByManager[0].id)
 
-   
+
 
 }
 
@@ -245,9 +245,9 @@ module.exports.departmentQuestion = departmentQuestion;
 module.exports.roleQuestions = roleQuestions;
 module.exports.employeeQuestions = employeeQuestions;
 
-module.exports.selectdepartment=selectdepartment
-module.exports.selectManager=selectManager
-module.exports.selectRole=selectRole
+module.exports.selectdepartment = selectdepartment
+module.exports.selectManager = selectManager
+module.exports.selectRole = selectRole
 
-module.exports.selectAndUpdateByRole=selectAndUpdateByRole
-module.exports.selectAndUpdateByManager=selectAndUpdateByManager
+module.exports.selectAndUpdateByRole = selectAndUpdateByRole
+module.exports.selectAndUpdateByManager = selectAndUpdateByManager

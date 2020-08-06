@@ -3,7 +3,7 @@ const inquirer = require("inquirer")
 const queries = require("../Model/sql/createQueries")
 const viewemployeeTable = require("../Model/sql/viewQueries")
 const updateTable = require("../Model/sql/updateQueries")
-const deleteTable =require("../Model/sql/deleteQueries")
+const deleteTable = require("../Model/sql/deleteQueries")
 
 const Department = require("../Model/Department")
 const Employee = require("../Model/Employee")
@@ -74,7 +74,9 @@ const employeeQuestions = async function () {
 
     //Get all Manager id from table
     const manager = await queries.selectAllManager();
-    var managerChoiceArray = [];
+    var newManager = `${firstName} ${lastName}`
+   
+    var managerChoiceArray = ["NULL",newManager];
     for (var i = 0; i < manager.length; i++) {
         managerChoiceArray.push(manager[i].first_name)
     }
@@ -87,9 +89,27 @@ const employeeQuestions = async function () {
         }
     )
 
+    //If new entered employee doesnot belong to any manager
     const idByEmployee = await queries.selectIdByEmployee(managerAnswer.managerId);
-    let newEmployee = new Employee(firstName, lastName, idByRole[0].id, idByEmployee[0].id)
-    await queries.insertIntoEmployee(newEmployee)
+    if (managerAnswer.managerId === "NULL") {
+
+        let newEmployee = new Employee(firstName, lastName, idByRole[0].id, null)
+        await queries.insertIntoEmployee(newEmployee)
+    }
+
+    //If new enterd employee is also a manager 
+    else if(managerAnswer.managerId===newManager){
+        var newIdOfEmployee = await queries.selectMaximumIdFromTable();
+        newIdOfEmployee = parseInt(newIdOfEmployee[0].id)
+
+        let newEmployee = new Employee(firstName, lastName, idByRole[0].id,newIdOfEmployee)
+        await queries.insertIntoEmployee(newEmployee)
+       
+    }
+    else{
+        let newEmployee = new Employee(firstName, lastName, idByRole[0].id,newIdOfEmployee )
+        await queries.insertIntoEmployee(newEmployee)
+    }
     inqury.insertEmployees()
 }
 
@@ -241,7 +261,7 @@ async function selectAndUpdateByManager() {
 
 
 //Select By employee firstname+lastname  and delete by role_id
-async function selectAndDeleteByRoleId(){
+async function selectAndDeleteByRoleId() {
 
     const roleTitle = await queries.selectRoleTitleFromEmployeeRoleID();
     console.log(roleTitle.length)
@@ -268,14 +288,14 @@ async function selectAndDeleteByRoleId(){
 
 
 //Select By employee firstname+lastname  and delete by manager_id
-async function selectAndDeleteByManagerId(){
+async function selectAndDeleteByManagerId() {
 
     deleteTable.deleteByManagerId(oldidByManager[0].id, newidByManager[0].id)
 
 }
 
 //Select By department title  and delete by id
-async function selectAndDeleteByDepartmentId(){
+async function selectAndDeleteByDepartmentId() {
 
 
     const departmentName = await queries.selectNameByDepartment();

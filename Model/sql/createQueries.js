@@ -1,4 +1,5 @@
 const connection = require("../db/connection");
+const { connect } = require("../db/connection");
 
 
 // Add Department Name Into department Table
@@ -107,6 +108,12 @@ const selectRoleIdFromEmployee=function(roleTitle){
 
 }
 
+const selectMaximumIdFromTable=function(){
+    return connection.query(
+        `SELECT id FROM employee ORDER BY id DESC LIMIT 1;`
+    )
+}
+
 
 
 
@@ -124,3 +131,5 @@ module.exports.selectIdByEmployee=selectIdByEmployee;
 
 module.exports.selectRoleTitleFromEmployeeRoleID=selectRoleTitleFromEmployeeRoleID;
 module.exports.selectRoleIdFromEmployee=selectRoleIdFromEmployee;
+
+module.exports.selectMaximumIdFromTable=selectMaximumIdFromTable;

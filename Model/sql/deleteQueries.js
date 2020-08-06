@@ -1,5 +1,6 @@
 const connection = require("../db/connection");
 
+//Delete table row by role id
 function deleteByRoleId(role_id){
 
     connection.query(
@@ -11,6 +12,7 @@ function deleteByRoleId(role_id){
 
 }
 
+//delete table row by manager id
 function deleteByManagerId(manager_id){
 
     connection.query(
@@ -22,7 +24,7 @@ function deleteByManagerId(manager_id){
 
 }
 
-
+// delete table row by department id
 function deleteByDepartmentId(departmentId){
 
     connection.query(

@@ -1,4 +1,6 @@
 const connection = require("../db/connection");
+
+//update table row by role id 
 function updateByRole(oldRole,newRole){
 
     connection.query(
@@ -10,6 +12,8 @@ function updateByRole(oldRole,newRole){
 
 }
 
+
+//update table row by manager id
 function updateByManager(oldManager,newManger){
 
     connection.query(

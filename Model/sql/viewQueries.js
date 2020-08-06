@@ -1,5 +1,7 @@
 
 const connection = require("../db/connection");
+
+//View all information from employee and common information from role and department
 const viewEmployeeTable = function () {
     console.log("inside viewEmployee table line 4")
     return connection.query(
@@ -33,6 +35,8 @@ const viewEmployeeTable = function () {
 
 }
 
+
+//view information by Department
 const viewEmployeeByDepartment = function (department) {
 
     console.log("inside viewEmployee By Department line 31")
@@ -59,6 +63,8 @@ const viewEmployeeByDepartment = function (department) {
         })
 }
 
+
+//View information my employee manager
 const viewEmployeeByManager = function (manager) {
     console.log("inside viewEmployee By Manager line 56")
     return connection.query(
@@ -83,6 +89,7 @@ const viewEmployeeByManager = function (manager) {
         })
 }
 
+//view information by employee role
 const viewEmployeeByRole = function (role) {
     console.log("inside viewEmployee By Role line 79")
     return connection.query(

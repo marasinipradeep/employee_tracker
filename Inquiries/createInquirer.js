@@ -3,6 +3,7 @@ const inquirer = require("inquirer")
 const queries = require("../Model/sql/createQueries")
 const viewemployeeTable = require("../Model/sql/viewQueries")
 const updateTable = require("../Model/sql/updateQueries")
+const deleteTable =require("../Model/sql/deleteQueries")
 
 const Department = require("../Model/Department")
 const Employee = require("../Model/Employee")
@@ -236,8 +237,66 @@ async function selectAndUpdateByManager() {
 
     const newidByManager = await queries.selectIdByEmployee(newManagerAnswer.newManager);
     updateTable.updateByRole(oldidByManager[0].id, newidByManager[0].id)
+}
 
 
+//Select By employee firstname+lastname  and delete by role_id
+async function selectAndDeleteByRoleId(){
+
+    const roleTitle = await queries.selectRoleTitleFromEmployeeRoleID();
+    console.log(roleTitle.length)
+    var roleTitleChoiceArray = [];
+
+    for (var i = 0; i < roleTitle.length; i++) {
+        roleTitleChoiceArray.push(roleTitle[i].title)
+    }
+
+    const answer = await inquirer.prompt(
+        {
+            message: "Which department do you want to delete?",
+            name: "role_Title",
+            type: "rawlist",
+            choices: roleTitleChoiceArray
+        }
+    )
+
+    const role_id = await queries.selectRoleIdFromEmployee(answer.role_Title);
+    console.log(role_id)
+    console.log(`Role ID Is ${role_id[0].role_id}`)
+    deleteTable.deleteByRoleId(role_id[0].role_id)
+}
+
+
+//Select By employee firstname+lastname  and delete by manager_id
+async function selectAndDeleteByManagerId(){
+
+    deleteTable.deleteByManagerId(oldidByManager[0].id, newidByManager[0].id)
+
+}
+
+//Select By department title  and delete by id
+async function selectAndDeleteByDepartmentId(){
+
+
+    const departmentName = await queries.selectNameByDepartment();
+    var departmentChoiceByNameArray = [];
+
+    for (var i = 0; i < departmentName.length; i++) {
+        console.log(`line 49 ${departmentName[i].name}`)
+        departmentChoiceByNameArray.push(departmentName[i].name)
+    }
+
+    const answer = await inquirer.prompt(
+        {
+            message: "Which department do you want to delete?",
+            name: "departmentName",
+            type: "rawlist",
+            choices: departmentChoiceByNameArray
+        }
+    )
+
+    const idByDepartment = await queries.selectIdByDepartment(answer.departmentName);
+    deleteTable.deleteByDepartmentId(idByDepartment[0].id)
 
 }
 
@@ -251,3 +310,7 @@ module.exports.selectRole = selectRole
 
 module.exports.selectAndUpdateByRole = selectAndUpdateByRole
 module.exports.selectAndUpdateByManager = selectAndUpdateByManager
+
+module.exports.selectAndDeleteByRoleId = selectAndDeleteByRoleId
+module.exports.selectAndDeleteByManagerId = selectAndDeleteByManagerId
+module.exports.selectAndDeleteByDepartmentId = selectAndDeleteByDepartmentId

@@ -89,6 +89,26 @@ const selectIdByEmployee =function(first_name){
    )
 }
 
+const selectRoleTitleFromEmployeeRoleID=function(){
+    console.log(`line 93 selectRoleTitleFromEmployeeRoleID()`)
+    return   connection.query(
+        `SELECT role.title
+         FROM employee 
+        INNER JOIN role on role.id = employee.role_id ;`
+    )
+}
+
+const selectRoleIdFromEmployee=function(roleTitle){
+
+    return   connection.query(
+        `SELECT employee.role_id FROM employee 
+        INNER JOIN role on role.id = employee.role_id WHERE role.title = ?;`,roleTitle
+    )
+
+}
+
+
+
 
 
 
@@ -101,3 +121,6 @@ module.exports.selectNameByDepartment=selectNameByDepartment;
 module.exports.selectIdByDepartment=selectIdByDepartment;
 module.exports.selectIdByRole=selectIdByRole;
 module.exports.selectIdByEmployee=selectIdByEmployee;
+
+module.exports.selectRoleTitleFromEmployeeRoleID=selectRoleTitleFromEmployeeRoleID;
+module.exports.selectRoleIdFromEmployee=selectRoleIdFromEmployee;

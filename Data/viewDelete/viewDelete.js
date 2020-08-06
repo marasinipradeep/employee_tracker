@@ -1,12 +1,12 @@
 const deleteEmployee ={
     message:"SELECT FROM BELOW TO DELETE EMPLOYEE ?",
     type:"rawlist",
-    name:"viewEmployeeChoices",
+    name:"viewDeleteChoices",
     choices:[
-
-        "---------REMOVE FROM DEPARTMENT-------------",
         "---------REMOVE FROM ROLE-------------",
-        "---------REMOVE BY EMPLOYEE----------"
+        "---------REMOVE BY MANAGER----------",
+        "---------REMOVE FROM DEPARTMENT-------------"
+       
     ]
 }
 

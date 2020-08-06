@@ -6,33 +6,32 @@ const createInq = require("./createInquirer")
 
 
 const deleteEmployee = function () {
-    inquirer.prompt(viewDelete).then((answer) => {
+  inquirer.prompt(viewDelete).then((answer) => {
 
-        switch(answer.viewUpdateChoices){
+    switch (answer.viewDeleteChoices) {
 
-            case("---------REMOVE FROM DEPARTMENT-------------"):
-          //  createInq.deleteByDepartment();
-            break;
+      case ("---------REMOVE FROM ROLE-------------"):
+          createInq.selectAndDeleteByRoleId()
+        break;
 
+      case ("---------REMOVE BY MANAGER----------"):
+          createInq.selectAndDeleteByManagerId();
+        break;
 
-            case("---------REMOVE FROM ROLE-------------"):
-          //  createInq.deleteByRole();
-            break;
+      case ("---------REMOVE FROM DEPARTMENT-------------"):
+          createInq.selectAndDeleteByDepartmentId();
+        break;
 
-            case("---------REMOVE BY EMPLOYEE----------"):
-          //  createInq.deleteByEmployee()
-            break;
+      case ("---------EXIT----------"):
+        break;
 
-            case("---------EXIT----------"):
-            break;
+      default:
+        console.log("not valid selection");
+        break;
 
-            default:
-                console.log("not valid selection");
-                break;
+    }
 
-        }
-  
-    })
+  })
 }
 
 

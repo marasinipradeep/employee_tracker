@@ -1,29 +1,27 @@
 const connection = require("../db/connection");
 
-//update table row by role id 
-function updateByRole(oldRole,newRole){
+class UpdateQueries {
 
-    connection.query(
-       `UPDATE employee set role_id =?  WHERE id = ?`,[oldRole,newRole] ,
-        (err) => {
-            if (err) throw err;
-            console.log("Table Updated By Role successfully")
-        })
+    constructor() { }
+    //update table row by role id 
+    updateByRole(oldRole, newRole) {
 
+        connection.query(
+            `UPDATE employee set role_id =?  WHERE id = ?`, [oldRole, newRole],
+            (err) => {
+                if (err) throw err;
+                console.log("Table Updated By Role successfully")
+            })
+    }
+    //update table row by manager id
+    updateByManager(oldManager, newManger) {
+
+        connection.query(
+            `UPDATE employee set manager_id =?  WHERE id = ?`, [oldManager, newManger],
+            (err) => {
+                if (err) throw err;
+                console.log("Table Updated By Manager successfully")
+            })
+    }
 }
-
-
-//update table row by manager id
-function updateByManager(oldManager,newManger){
-
-    connection.query(
-        `UPDATE employee set manager_id =?  WHERE id = ?`,[oldManager,newManger] ,
-         (err) => {
-             if (err) throw err;
-             console.log("Table Updated By Manager successfully")
-         })
-
-}
-
-module.exports.updateByRole = updateByRole;
-module.exports.updateByManager = updateByManager;
+module.exports = new UpdateQueries()

@@ -33,7 +33,6 @@ const insertEmployees = function () {
             default:
                 console.log("not valid selection");
                 process.exit()
-               
                 break;
 
         }

@@ -122,3 +122,5 @@ Has following database schema containing three tables:
 
 ```
 Note :- To view this readme.md file in neat and cleaner view.On the top of header of README.md right click and click on open preview.
+
+* Bonus:- Delete By Manager_ID Not working and Sum of Salaray has no been created.

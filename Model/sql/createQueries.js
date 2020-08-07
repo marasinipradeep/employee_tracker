@@ -1,7 +1,15 @@
 const connection = require("../db/connection");
 
 // Add Department Name Into department Table
-const insertIntoDepartment = function (newDepartment) {
+
+class CreateQueries{
+
+    constructor(){
+
+    }
+
+    
+ insertIntoDepartment(newDepartment) {
     connection.query(
         "INSERT INTO department SET ?",
         {
@@ -14,7 +22,7 @@ const insertIntoDepartment = function (newDepartment) {
 
 }
 
-const insertIntoRole = function (newRole) {
+ insertIntoRole (newRole) {
     connection.query(
         "INSERT INTO role SET ?",
         {
@@ -29,7 +37,7 @@ const insertIntoRole = function (newRole) {
         })
 }
 
-const insertIntoEmployee = function (newEmployee) {
+ insertIntoEmployee (newEmployee) {
     console.log("line 32")
     connection.query(
         "INSERT INTO employee SET ?",
@@ -48,7 +56,7 @@ const insertIntoEmployee = function (newEmployee) {
 
 //Select All By Role
 
-const selectAllRole = function () {
+ selectAllRole () {
     return connection.query(
         "select title from role;"
     )
@@ -56,39 +64,39 @@ const selectAllRole = function () {
 
 
 //Select All By Employee
-const selectAllManager = function () {
+ selectAllManager () {
     return connection.query(
         "select first_name from employee"
     )
 }
 
 //Select Name By Department
-const selectNameByDepartment = function () {
+selectNameByDepartment  () {
     return connection.query(
         "select name from department"
     )
 }
 
 //select id from department
-const selectIdByDepartment = function (departmentName) {
+selectIdByDepartment (departmentName) {
     return connection.query(
         "select id from department where name = ?", departmentName
     )
 }
 
-const selectIdByRole = function (title) {
+ selectIdByRole (title) {
     return connection.query(
         "select id from role where title = ?;", title
     )
 }
 
-const selectIdByEmployee = function (first_name) {
+ selectIdByEmployee  (first_name) {
     return connection.query(
         "select id from employee where first_name = ?;", first_name
     )
 }
 
-const selectRoleTitleFromEmployeeRoleID = function () {
+ selectRoleTitleFromEmployeeRoleID () {
     console.log(`line 93 selectRoleTitleFromEmployeeRoleID()`)
     return connection.query(
         `SELECT role.title
@@ -97,7 +105,7 @@ const selectRoleTitleFromEmployeeRoleID = function () {
     )
 }
 
-const selectRoleIdFromEmployee = function (roleTitle) {
+selectRoleIdFromEmployee (roleTitle) {
 
     return connection.query(
         `SELECT employee.role_id FROM employee 
@@ -106,23 +114,12 @@ const selectRoleIdFromEmployee = function (roleTitle) {
 
 }
 
-const selectMaximumIdFromTable = function () {
+ selectMaximumIdFromTable () {
     return connection.query(
         `SELECT id FROM employee ORDER BY id DESC LIMIT 1;`
     )
 }
 
-module.exports.insertIntoDepartment = insertIntoDepartment;
-module.exports.insertIntoRole = insertIntoRole;
-module.exports.insertIntoEmployee = insertIntoEmployee;
-module.exports.selectAllRole = selectAllRole;
-module.exports.selectAllManager = selectAllManager;
-module.exports.selectNameByDepartment = selectNameByDepartment;
-module.exports.selectIdByDepartment = selectIdByDepartment;
-module.exports.selectIdByRole = selectIdByRole;
-module.exports.selectIdByEmployee = selectIdByEmployee;
+}
 
-module.exports.selectRoleTitleFromEmployeeRoleID = selectRoleTitleFromEmployeeRoleID;
-module.exports.selectRoleIdFromEmployee = selectRoleIdFromEmployee;
-
-module.exports.selectMaximumIdFromTable = selectMaximumIdFromTable;
+module.exports=new CreateQueries()

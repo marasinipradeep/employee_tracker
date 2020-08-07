@@ -20,6 +20,8 @@ const updateEmployee = function () {
             break;
 
             case("---------EXIT----------"):
+            connection.end()
+            process.exit()
             break;
 
             default:

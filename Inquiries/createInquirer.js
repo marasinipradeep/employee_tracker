@@ -33,7 +33,6 @@ const roleQuestions = async function () {
     var departmentChoiceByNameArray = [];
 
     for (var i = 0; i < roles.length; i++) {
-        console.log(`line 49 ${roles[i].name}`)
         departmentChoiceByNameArray.push(roles[i].name)
     }
 
@@ -46,8 +45,6 @@ const roleQuestions = async function () {
         }
     )
     const idByDepartment = await queries.selectIdByDepartment(answer.department_id);
-    console.log("57")
-    console.log(idByDepartment[0].id)
     let newRole = new Role(title, salary, idByDepartment[0].id)
     await queries.insertIntoRole(newRole)
     inqury.insertEmployees()
@@ -92,7 +89,6 @@ const employeeQuestions = async function () {
     //If new entered employee doesnot belong to any manager
     const idByEmployee = await queries.selectIdByEmployee(managerAnswer.managerId);
     if (managerAnswer.managerId === "NULL") {
-
         let newEmployee = new Employee(firstName, lastName, idByRole[0].id, null)
         await queries.insertIntoEmployee(newEmployee)
     }
@@ -133,8 +129,6 @@ const selectdepartment = async function () {
     )
 
     const idByDepartment = await queries.selectIdByDepartment(answer.department_id);
-    console.log("57")
-    console.log(idByDepartment[0].id)
     viewemployeeTable.viewEmployeeByDepartment(idByDepartment[0].id)
 }
 
@@ -154,8 +148,6 @@ const selectManager = async function () {
         }
     )
     const idByManager = await queries.selectIdByEmployee(managerAnswer.managerId);
-    console.log("57")
-    console.log(idByManager[0].id)
     viewemployeeTable.viewEmployeeByManager(idByManager[0].id)
 }
 
@@ -174,14 +166,10 @@ async function selectRole() {
         }
     )
     const idByRole = await queries.selectIdByRole(roleAnswer.role_id);
-    console.log("57")
-    console.log(idByRole[0].id)
     viewemployeeTable.viewEmployeeByRole(idByRole[0].id)
-
-
-
 }
 
+//function to select and update by role 
 async function selectAndUpdateByRole() {
     const role = await queries.selectAllRole();
     var oldroleChoiceArray = [];
@@ -215,13 +203,11 @@ async function selectAndUpdateByRole() {
     )
 
     const newidByRole = await queries.selectIdByRole(newroleAnswer.newRole);
-    console.log("57")
-    console.log(oldidByRole[0].id)
     updateTable.updateByRole(oldidByRole[0].id, newidByRole[0].id)
 
 }
 
-
+//Function that select and updates by manager
 async function selectAndUpdateByManager() {
     const manager = await queries.selectAllManager();
     console.log("206")
@@ -264,7 +250,6 @@ async function selectAndUpdateByManager() {
 async function selectAndDeleteByRoleId() {
 
     const roleTitle = await queries.selectRoleTitleFromEmployeeRoleID();
-    console.log(roleTitle.length)
     var roleTitleChoiceArray = [];
 
     for (var i = 0; i < roleTitle.length; i++) {
@@ -281,17 +266,13 @@ async function selectAndDeleteByRoleId() {
     )
 
     const role_id = await queries.selectRoleIdFromEmployee(answer.role_Title);
-    console.log(role_id)
-    console.log(`Role ID Is ${role_id[0].role_id}`)
     deleteTable.deleteByRoleId(role_id[0].role_id)
 }
 
 
 //Select By employee firstname+lastname  and delete by manager_id
 async function selectAndDeleteByManagerId() {
-
     deleteTable.deleteByManagerId(oldidByManager[0].id, newidByManager[0].id)
-
 }
 
 //Select By department title  and delete by id

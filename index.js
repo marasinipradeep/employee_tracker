@@ -1,4 +1,3 @@
-
 const connectingDB = require("./Model/db/connection")
 
 //Loads Table With All Employee Information On Console In The Begining

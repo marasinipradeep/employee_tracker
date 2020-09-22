@@ -3,12 +3,10 @@ const connection = require("../db/connection");
 // Add Department Name Into department Table
 
 class CreateQueries{
-
     constructor(){
+}
 
-    }
-
-    
+// Query that insert into department
  insertIntoDepartment(newDepartment) {
     connection.query(
         "INSERT INTO department SET ?",
@@ -22,6 +20,7 @@ class CreateQueries{
 
 }
 
+// Query that insert into role
  insertIntoRole (newRole) {
     connection.query(
         "INSERT INTO role SET ?",
@@ -37,6 +36,7 @@ class CreateQueries{
         })
 }
 
+// Query that insert into employee
  insertIntoEmployee (newEmployee) {
     console.log("line 32")
     connection.query(
@@ -84,18 +84,21 @@ selectIdByDepartment (departmentName) {
     )
 }
 
+//Select id by role
  selectIdByRole (title) {
     return connection.query(
         "select id from role where title = ?;", title
     )
 }
 
+//Select id by employee
  selectIdByEmployee  (first_name) {
     return connection.query(
         "select id from employee where first_name = ?;", first_name
     )
 }
 
+//select role title from employee id
  selectRoleTitleFromEmployeeRoleID () {
     console.log(`line 93 selectRoleTitleFromEmployeeRoleID()`)
     return connection.query(
@@ -105,6 +108,7 @@ selectIdByDepartment (departmentName) {
     )
 }
 
+//select role id from employee
 selectRoleIdFromEmployee (roleTitle) {
 
     return connection.query(

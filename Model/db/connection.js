@@ -4,9 +4,9 @@ const mysql = require("mysql")
 // database info
 const connection = mysql.createConnection({
     host: process.env.DBHOST ||"localhost",
-    user: process.env.DBUSER ||"root",
-    password: process.env.DBPASSWORD||"alterPassword",
-    database: process.env.DATABASE ||"employees",
+    user: process.env.DBUSER ||"", //add username
+    password: process.env.DBPASSWORD||"",//add password 
+    database: process.env.DATABASE ||"",//add database name
 })
    
 
